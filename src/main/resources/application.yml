@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: nurburgring
+  jackson:
+    default-property-inclusion: NON_NULL
+  rabbitmq:
+    host: 127.0.0.1
+    virtual-host: /
+    username: guest
+    password: guest
+
+server:
+  port: 8059
+  tomcat:
+    max-threads: 10
+    min-spare-threads: 5
+
+mq:
+  nurburgring:
+    queues:
+      slow-lane:
+        queue: mq.nurburgring.slowLane
+        exchange: mq.nurburgring.events
+        routing-key: mq.nurburgring.slowLane
+        dead-letter-queue: mq.nurburgring.slowLane.deadLetter
+        args:
+          x-dead-letter-exchange:
+          x-dead-letter-routing-key: ${mq.nurburgring.queues.slow-lane.dead-letter-queue}
+      medium-lane:
+        queue: mq.nurburgring.mediumLane
+        exchange: mq.nurburgring.events
+        routing-key: mq.nurburgring.mediumLane
+        dead-letter-queue: mq.nurburgring.mediumLane.deadLetter
+        args:
+          x-dead-letter-exchange:
+          x-dead-letter-routing-key: ${mq.nurburgring.queues.medium-lane.dead-letter-queue}
+      fast-lane:
+        queue: mq.nurburgring.fastLane
+        exchange: mq.nurburgring.events
+        routing-key: mq.nurburgring.fastLane
+        dead-letter-queue: mq.nurburgring.fastLane.deadLetter
+        args:
+          x-dead-letter-exchange:
+          x-dead-letter-routing-key: ${mq.nurburgring.queues.fast-lane.dead-letter-queue}
