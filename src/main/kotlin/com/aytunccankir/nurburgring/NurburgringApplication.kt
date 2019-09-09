@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class NurburgringApplication
 
 fun main(args: Array<String>) {
-	runApplication<NurburgringApplication>(*args)
+    runApplication<NurburgringApplication>(*args)
 }

@@ -10,12 +10,10 @@ import org.springframework.stereotype.Component
 @Component
 class EventPublisher(private val rabbitTemplate: RabbitTemplate) {
 
-    fun publish(event: Event) {
-        when {
-            event.car!! == Car.TRUCK -> publishEvent(exchange, RoutingKeys.SLOW_LANE.routingKey, event)
-            event.car!! == Car.MINIVAN -> publishEvent(exchange, RoutingKeys.MEDIUM_LANE.routingKey, event)
-            else -> publishEvent(exchange, RoutingKeys.FAST_LANE.routingKey, event)
-        }
+    fun publish(event: Event) = when {
+        event.car!! == Car.TRUCK -> publishEvent(exchange, RoutingKeys.SLOW_LANE.routingKey, event)
+        event.car!! == Car.MINIVAN -> publishEvent(exchange, RoutingKeys.MEDIUM_LANE.routingKey, event)
+        else -> publishEvent(exchange, RoutingKeys.FAST_LANE.routingKey, event)
     }
 
     private fun publishEvent(exchange: String, routingKey: String, message: Any) = try {

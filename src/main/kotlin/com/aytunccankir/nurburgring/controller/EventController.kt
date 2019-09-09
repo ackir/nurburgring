@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController
 class EventController(private val eventPublisher: EventPublisher) {
 
     @PostMapping
-    fun campaignsBySupplier(@RequestParam("carType") carType: Car?) {
-        eventPublisher.publish(Event().apply { car = carType })
-    }
+    fun campaignsBySupplier(@RequestParam("carType") carType: Car?) =
+            eventPublisher.publish(Event().apply { car = carType })
 }
